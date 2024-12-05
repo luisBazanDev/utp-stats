@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        utp_red: '#FF385B',
+                        utp_red_light: '#FF6579'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/styles/sidebar.css"/>
+
+    <!-- Lato font -->
+    <link rel="stylesheet" href="/styles/font.css" />
+</head>
+<f:view>
+    <div class="flex">
+        <div class="flex flex-col lato-light">
+            <div class="w-full h-16 bg-gradient-to-r from-utp_red to-utp_red_light flex justify-center items-center cursor-pointer select-none">
+                <img src="/icons/menu.svg" alt="menu.svg" class="text-white w-6" />
+            </div>
+            <a class="flex flex-col items-center cursor_pointer w-20 aspect-square justify-center gap-2 hover:bg-slate-50" href="/home">
+                <img src="/icons/home.svg" alt="home.svg" class="w-4"/>
+                <span><h:outputText value="#{msgs.sidebar_home}"></h:outputText></span>
+            </a>
+            <a class="flex flex-col items-center cursor_pointer w-20 aspect-square justify-center gap-2 hover:bg-slate-50" href="/data">
+                <i><img src="/icons/data.svg" alt="data.svg" class="w-4"/></i>
+                <span><h:outputText value="#{msgs.sidebar_data}"></h:outputText></span>
+            </a>
+            <a class="flex flex-col items-center cursor_pointer sidebar_active w-20 aspect-square justify-center gap-2 hover:bg-slate-50" href="/stats">
+                <i><img src="/icons/stats.svg" alt="stats.svg" class="w-4"/></i>
+                <span><h:outputText value="#{msgs.sidebar_stats}"></h:outputText></span>
+            </a>
+        </div>
+        <div class="flex flex-col w-full h-dvh">
+            <div class="h-16 w-full bg-white">
+                <img src="/images/utp_stats.png" alt="utp_stats.png" class="h-full p-4"/>
+            </div>
+            <div class="bg-slate-100 w-full h-full p-4 overflow-x-none overflow-y-auto">
+                <!-- Content -->
+            </div>
+        </div>
+    </div>
+</f:view>
+</html>

@@ -1,0 +1,15 @@
+.sidebar_active {
+    position: relative;
+    background: #f1f5f9;
+}
+
+.sidebar_active::after {
+    content: '';
+    height: 90%;
+    background: #FF385B;
+    border-radius: 2rem;
+    width: .3rem;
+    position: absolute;
+    left: 0;
+    top: 5%;
+}

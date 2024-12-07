@@ -55,7 +55,7 @@
             <div class="bg-slate-100 w-full h-full p-4 overflow-x-none overflow-y-auto flex flex-wrap gap-4">
                 <!-- Content -->
                 <ui:repeat value="#{sectionBean.sections}" var="section">
-                    <a class="bg-white drop-shadow-md h-36 aspect-[3/1] flex justify-between items-center px-4 rounded-xl"
+                    <a class="bg-white drop-shadow-md h-36 aspect-[3/1] flex justify-between items-center px-4 rounded-xl group"
                        href="/data/#{section.id}">
                         <div class="flex gap-4 items-center h-full">
                             <img src="/images/not-courses.svg" alt="not-courses.svg" class="aspect-square h-[65%]"/>
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex h-full ">
+                        <div class="flex h-full group-hover:-translate-x-1 group-action:translate-x-2 transition-transform">
                             <img src="/icons/right-arrow.svg" alt="right-arrow.svg" class="h-full w-4"/>
                         </div>
                     </a>

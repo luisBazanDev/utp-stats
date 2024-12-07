@@ -24,23 +24,26 @@
     <link rel="stylesheet" href="/styles/sidebar.css"/>
 
     <!-- Lato font -->
-    <link rel="stylesheet" href="/styles/font.css" />
+    <link rel="stylesheet" href="/styles/font.css"/>
 </head>
 <f:view>
     <div class="flex">
         <div class="flex flex-col lato-light">
             <div class="w-full h-16 bg-gradient-to-r from-utp_red to-utp_red_light flex justify-center items-center cursor-pointer select-none">
-                <img src="/icons/menu.svg" alt="menu.svg" class="text-white w-6" />
+                <img src="/icons/menu.svg" alt="menu.svg" class="text-white w-6"/>
             </div>
-            <a class="flex flex-col items-center cursor_pointer w-20 aspect-square justify-center gap-2 hover:bg-slate-50" href="/home">
+            <a class="flex flex-col items-center cursor_pointer w-20 aspect-square justify-center gap-2 hover:bg-slate-50"
+               href="/home">
                 <img src="/icons/home.svg" alt="home.svg" class="w-4"/>
                 <span><h:outputText value="#{msgs.sidebar_home}"></h:outputText></span>
             </a>
-            <a class="flex flex-col items-center cursor_pointer w-20 sidebar_active aspect-square justify-center gap-2 hover:bg-slate-50" href="/data">
+            <a class="flex flex-col items-center cursor_pointer w-20 sidebar_active aspect-square justify-center gap-2 hover:bg-slate-50"
+               href="#">
                 <i><img src="/icons/data.svg" alt="data.svg" class="w-4"/></i>
                 <span><h:outputText value="#{msgs.sidebar_data}"></h:outputText></span>
             </a>
-            <a class="flex flex-col items-center cursor_pointer w-20 aspect-square justify-center gap-2 hover:bg-slate-50" href="/stats">
+            <a class="flex flex-col items-center cursor_pointer w-20 aspect-square justify-center gap-2 hover:bg-slate-50"
+               href="/stats/#{sectionBean.sections.get(0) == null ? '' : sectionBean.sections.get(0).id}">
                 <i><img src="/icons/stats.svg" alt="stats.svg" class="w-4"/></i>
                 <span><h:outputText value="#{msgs.sidebar_stats}"></h:outputText></span>
             </a>

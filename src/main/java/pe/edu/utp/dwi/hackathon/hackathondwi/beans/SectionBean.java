@@ -1,9 +1,11 @@
 package pe.edu.utp.dwi.hackathon.hackathondwi.beans;
 
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import pe.edu.utp.dwi.hackathon.hackathondwi.dao.SectionDAO;
 import pe.edu.utp.dwi.hackathon.hackathondwi.dto.SectionData;
+import pe.edu.utp.dwi.hackathon.hackathondwi.dto.SectionInfo;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,9 +14,16 @@ import java.util.List;
 @ViewScoped
 public class SectionBean implements Serializable {
     private List<SectionData> sections;
+    private SectionInfo sectionInfo;
 
     public SectionBean() {
         sections = new SectionDAO().getAllSections();
+
+        String sectionId = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("sectionId");
+        System.out.println(sectionId);
+        if(sectionId != null) {
+            loadSectionInfo(sectionId);
+        }
     }
 
     public List<SectionData> getSections() {
@@ -22,7 +31,18 @@ public class SectionBean implements Serializable {
     }
 
     public void setSections(List<SectionData> sections) {
-        System.out.println("was");
         this.sections = sections;
+    }
+
+    private void loadSectionInfo(String id) {
+        this.sectionInfo = new SectionDAO().getSectionInfo(id);
+    }
+
+    public void setSectionInfo(SectionInfo sectionInfo) {
+        this.sectionInfo = sectionInfo;
+    }
+
+    public SectionInfo getSectionInfo() {
+        return sectionInfo;
     }
 }

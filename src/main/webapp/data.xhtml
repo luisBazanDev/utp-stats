@@ -15,7 +15,9 @@
                 extend: {
                     colors: {
                         utp_red: '#FF385B',
-                        utp_red_light: '#FF6579'
+                        utp_red_light: '#FF6579',
+                        utp_purple: '#5B36F2',
+                        red: '#FF0000'
                     }
                 }
             }
@@ -48,12 +50,84 @@
                 <span><h:outputText value="#{msgs.sidebar_stats}"></h:outputText></span>
             </a>
         </div>
-        <div class="flex flex-col w-full h-dvh">
+        <div class="flex flex-col flex-1 h-dvh lato-light">
             <div class="h-16 w-full bg-white">
                 <img src="/images/utp_stats.png" alt="utp_stats.png" class="h-full p-4"/>
             </div>
             <div class="bg-slate-100 w-full h-full p-4 overflow-x-none overflow-y-auto">
                 <!-- Content -->
+                <div class="flex flex-col gap-2">
+                    <div class="flex justify-between">
+                        <div class="bg-white flex gap-4 items-center p-2 rounded-xl drop-shadow-lg">
+                            <!-- section info -->
+                            <img src="/images/not-courses.svg" alt="section-id" class="h-16" />
+                            <div class="flex gap-16 mr-4">
+                                <div class="flex gap-1">
+                                    <span class="font-bold">
+                                        <h:outputText value="#{msgs.data_info_section}" />
+                                    </span>
+                                    <span>
+                                        <h:outputText value="#{sectionBean.sectionInfo.id}" />
+                                    </span>
+                                </div>
+                                <div class="flex gap-1">
+                                    <span class="font-bold">
+                                        <h:outputText value="#{msgs.data_info_name}" />
+                                    </span>
+                                    <span>
+                                        <h:outputText value="#{sectionBean.sectionInfo.name}" />
+                                    </span>
+                                </div>
+                                <div class="flex gap-1">
+                                    <span class="font-bold">
+                                        <h:outputText value="#{msgs.data_info_students}" />
+                                    </span>
+                                    <span>
+                                        <h:outputText value="#{sectionBean.sectionInfo.totalStudents}" />
+                                    </span>
+                                </div>
+                                <div class="flex gap-1">
+                                    <span class="font-bold">
+                                        <h:outputText value="#{msgs.data_info_evaluations}" />
+                                    </span>
+                                    <span>
+                                        <h:outputText value="#{sectionBean.sectionInfo.totalEvaluations}" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <!-- buttons -->
+                            <div class="bg-red flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
+                                <img src="/icons/trash.svg" alt="tash.svg" class="h-5"/>
+                                <span>
+                                    <h:outputText value="#{msgs.data_btn_delete}" />
+                                </span>
+                            </div>
+                            <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
+                                <img src="/icons/file.svg" alt="file.svg" class="h-5"/>
+                                <span>
+                                    <h:outputText value="#{msgs.data_btn_template}" />
+                                </span>
+                            </div>
+                            <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
+                                <img src="/icons/upload.svg" alt="upload.svg" class="h-5"/>
+                                <span>
+                                    <h:outputText value="#{msgs.data_btn_import}" />
+                                </span>
+                            </div>
+                            <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
+                                <img src="/icons/plus.svg" alt="plus.svg" class="h-5"/>
+                                <span>
+                                    <h:outputText value="#{msgs.data_btn_create}" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <!-- evaluations -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>

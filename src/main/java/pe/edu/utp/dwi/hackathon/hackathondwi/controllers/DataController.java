@@ -7,10 +7,21 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(value="/data")
+@WebServlet(value="/data/*")
 public class DataController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("data.xhtml").forward(req, resp);
+        String pathInfo = req.getPathInfo();
+        System.out.println(pathInfo);
+        if (pathInfo != null && pathInfo.length() > 1) {
+            String sectionId = pathInfo.substring(1);
+            req.setAttribute("sectionId", sectionId);
+        } else {
+            // Redirect
+            resp.sendRedirect("/home");
+            return;
+        }
+
+        req.getRequestDispatcher("/data.xhtml").forward(req, resp);
     }
 }

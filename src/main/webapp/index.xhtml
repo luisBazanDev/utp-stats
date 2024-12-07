@@ -38,12 +38,12 @@
                 <span><h:outputText value="#{msgs.sidebar_home}"></h:outputText></span>
             </a>
             <a class="flex flex-col items-center cursor_pointer w-20 aspect-square justify-center gap-2 hover:bg-slate-50"
-               href="/data">
+               href="/data/#{sectionBean.sections.get(0) == null ? '' : sectionBean.sections.get(0).id}">
                 <i><img src="/icons/data.svg" alt="data.svg" class="w-4"/></i>
                 <span><h:outputText value="#{msgs.sidebar_data}"></h:outputText></span>
             </a>
             <a class="flex flex-col items-center cursor_pointer w-20 aspect-square justify-center gap-2 hover:bg-slate-50"
-               href="/stats">
+               href="/stats/#{sectionBean.sections.get(0) == null ? '' : sectionBean.sections.get(0).id}">
                 <i><img src="/icons/stats.svg" alt="stats.svg" class="w-4"/></i>
                 <span><h:outputText value="#{msgs.sidebar_stats}"></h:outputText></span>
             </a>

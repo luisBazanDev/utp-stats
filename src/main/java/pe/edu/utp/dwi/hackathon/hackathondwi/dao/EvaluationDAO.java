@@ -2,6 +2,7 @@ package pe.edu.utp.dwi.hackathon.hackathondwi.dao;
 
 import pe.edu.utp.dwi.hackathon.hackathondwi.dto.EvaluationData;
 import pe.edu.utp.dwi.hackathon.hackathondwi.dto.QuestionData;
+import pe.edu.utp.dwi.hackathon.hackathondwi.dto.StudentPoints;
 import pe.edu.utp.dwi.hackathon.hackathondwi.singleton.DatabaseConnection;
 
 import java.sql.CallableStatement;
@@ -59,5 +60,30 @@ public class EvaluationDAO implements IEvaluationDAO {
         }
 
         return questions;
+    }
+
+    @Override
+    public List<StudentPoints> getAllStudentPointsOf(int evaluationId) {
+        String query = "CALL getStudentsNotesOfEvaluation(?)";
+        List<StudentPoints> studentPoints = new ArrayList<>();
+
+        try {
+            DatabaseConnection db = DatabaseConnection.getInstancia();
+            CallableStatement statement = db.getConexion().prepareCall(query);
+            statement.setInt(1, evaluationId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                studentPoints.add(new StudentPoints(
+                        rs.getInt("student_id"),
+                        rs.getString("student_name"),
+                        rs.getInt("question_number"),
+                        rs.getDouble("student_points")
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return studentPoints;
     }
 }

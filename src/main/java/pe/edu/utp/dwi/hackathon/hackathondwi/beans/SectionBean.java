@@ -20,7 +20,7 @@ public class SectionBean implements Serializable {
         sections = new SectionDAO().getAllSections();
 
         String sectionId = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("sectionId");
-        System.out.println(sectionId);
+
         if(sectionId != null) {
             loadSectionInfo(sectionId);
         }

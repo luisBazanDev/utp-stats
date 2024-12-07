@@ -5,7 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsf/html">
 
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,7 +17,9 @@
                         utp_red: '#FF385B',
                         utp_red_light: '#FF6579',
                         utp_purple: '#5B36F2',
-                        red: '#FF0000'
+                        red: {
+                            neutro: '#FF0000',
+                        }
                     }
                 }
             }
@@ -56,76 +58,189 @@
             </div>
             <div class="bg-slate-100 w-full h-full p-4 overflow-x-none overflow-y-auto">
                 <!-- Content -->
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-8">
                     <div class="flex justify-between">
                         <div class="bg-white flex gap-4 items-center p-2 rounded-xl drop-shadow-lg">
                             <!-- section info -->
-                            <img src="/images/not-courses.svg" alt="section-id" class="h-16" />
+                            <img src="/images/not-courses.svg" alt="section-id" class="h-16"/>
                             <div class="flex gap-16 mr-4">
                                 <div class="flex gap-1">
                                     <span class="font-bold">
-                                        <h:outputText value="#{msgs.data_info_section}" />
+                                        <h:outputText value="#{msgs.data_info_section}"/>
                                     </span>
                                     <span>
-                                        <h:outputText value="#{sectionBean.sectionInfo.id}" />
+                                        <h:outputText value="#{sectionBean.sectionInfo.id}"/>
                                     </span>
                                 </div>
                                 <div class="flex gap-1">
                                     <span class="font-bold">
-                                        <h:outputText value="#{msgs.data_info_name}" />
+                                        <h:outputText value="#{msgs.data_info_name}"/>
                                     </span>
                                     <span>
-                                        <h:outputText value="#{sectionBean.sectionInfo.name}" />
+                                        <h:outputText value="#{sectionBean.sectionInfo.name}"/>
                                     </span>
                                 </div>
                                 <div class="flex gap-1">
                                     <span class="font-bold">
-                                        <h:outputText value="#{msgs.data_info_students}" />
+                                        <h:outputText value="#{msgs.data_info_students}"/>
                                     </span>
                                     <span>
-                                        <h:outputText value="#{sectionBean.sectionInfo.totalStudents}" />
+                                        <h:outputText value="#{sectionBean.sectionInfo.totalStudents}"/>
                                     </span>
                                 </div>
                                 <div class="flex gap-1">
                                     <span class="font-bold">
-                                        <h:outputText value="#{msgs.data_info_evaluations}" />
+                                        <h:outputText value="#{msgs.data_info_evaluations}"/>
                                     </span>
                                     <span>
-                                        <h:outputText value="#{sectionBean.sectionInfo.totalEvaluations}" />
+                                        <h:outputText value="#{sectionBean.sectionInfo.totalEvaluations}"/>
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div class="flex gap-4">
                             <!-- buttons -->
-                            <div class="bg-red flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
+                            <div class="bg-red-neutro flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
                                 <img src="/icons/trash.svg" alt="tash.svg" class="h-5"/>
                                 <span>
-                                    <h:outputText value="#{msgs.data_btn_delete}" />
+                                    <h:outputText value="#{msgs.data_btn_delete}"/>
                                 </span>
                             </div>
                             <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
                                 <img src="/icons/file.svg" alt="file.svg" class="h-5"/>
                                 <span>
-                                    <h:outputText value="#{msgs.data_btn_template}" />
+                                    <h:outputText value="#{msgs.data_btn_template}"/>
                                 </span>
                             </div>
                             <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
                                 <img src="/icons/upload.svg" alt="upload.svg" class="h-5"/>
                                 <span>
-                                    <h:outputText value="#{msgs.data_btn_import}" />
+                                    <h:outputText value="#{msgs.data_btn_import}"/>
                                 </span>
                             </div>
                             <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
                                 <img src="/icons/plus.svg" alt="plus.svg" class="h-5"/>
                                 <span>
-                                    <h:outputText value="#{msgs.data_btn_create}" />
+                                    <h:outputText value="#{msgs.data_btn_create}"/>
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <!-- evaluations -->
+                    <div class="flex flex-col gap-8">
+                        <ui:repeat value="#{evaluationsBean.evaluations}" var="evaluation" varStatus="varStatus">
+                            <div class="flex flex-col w-full item-center">
+                                <div class="flex gap-16 bg-white drop-shadow-lg w-full rounded-xl p-2 h-20 items-center z-20">
+                                    <!-- Evaluation info -->
+                                    <div class="text-2xl text-utp_purple font-bold lato-regular">
+                                        <h:outputText value="##{formatBean.format2Digits(varStatus.index + 1)}"/>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <span class="font-bold">
+                                            <h:outputText value="#{msgs.data_evaluation_name}"/>
+                                        </span>
+                                        <span>
+                                            <h:outputText value="#{evaluation.data.name}"/>
+                                        </span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <span class="font-bold">
+                                            <h:outputText value="#{msgs.data_evaluation_questions}"/>
+                                        </span>
+                                        <span>
+                                            <h:outputText value="#{evaluation.data.questionsCount}"/>
+                                        </span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <span class="font-bold">
+                                            <h:outputText value="#{msgs.data_evaluation_minimum_approve}"/>
+                                        </span>
+                                        <span>
+                                            <h:outputText value="#{evaluation.data.minPoints}"/>
+                                        </span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <span class="font-bold">
+                                            <h:outputText value="#{msgs.data_evaluation_date}"/>
+                                        </span>
+                                        <span>
+                                            <h:outputText value="#{formatBean.formatDate(evaluation.data.date)}"/>
+                                        </span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <span class="font-bold">
+                                            <h:outputText value="#{msgs.data_evaluation_average}"/>
+                                        </span>
+                                        <span class="p-1 bg-#{evaluation.data.averageStudentsPoints >= evaluation.data.minPoints ? 'green-200' : 'red-300'}">
+                                            <h:outputText value="#{evaluation.data.averageStudentsPoints}"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="bg-white w-[98%] mx-auto rounded-b-xl drop-shadow-md flex flex-col justify-between z-10 p-2 pt-4 gap-4">
+                                    <!-- Evaluation student points -->
+                                    <h:panelGroup rendered="#{evaluation.studentDataHashMap.size() > 0}">
+                                        <div class="flex justify-between">
+                                            <!-- data -->
+                                            <div class="flex flex-col gap-2">
+                                                <!-- students -->
+                                                <span class="lato-regular font-bold mx-auto text-lg">
+                                                    <h:outputText value="#{msgs.data_evaluation_students}"/>
+                                                </span>
+                                                <ui:repeat value="#{evaluation.studentDataHashMap.values()}"
+                                                           var="student" varStatus="statusStudent">
+                                                    <span>
+                                                        <h:outputText value="#{student.name}"/>
+                                                    </span>
+                                                </ui:repeat>
+                                            </div>
+                                            <ui:repeat value="#{utilsBean.generateNumberList(evaluation.data.questionsCount)}" var="questionNumber">
+                                                <div class="flex flex-col gap-2 items-center">
+                                                    <!-- question n -->
+                                                    <span class="mx-auto flex gap-1">
+                                                        <h:outputText value="P#{questionNumber}" styleClass="lato-regular font-bold text-lg"/>
+                                                        <h:outputText value="(#{evaluation.questions.get(questionNumber-1).value} pts)" styleClass="text-utp_red"/>
+                                                    </span>
+                                                    <ui:repeat value="#{evaluation.studentDataHashMap.values()}"
+                                                               var="student" varStatus="statusStudent">
+                                                        <span>
+                                                            <h:outputText value="#{formatBean.formatPoints(student.points.get(questionNumber - 1))}"/>
+                                                        </span>
+                                                    </ui:repeat>
+                                                </div>
+                                            </ui:repeat>
+                                            <div class="flex flex-col gap-2 items-center">
+                                                <span class="lato-regular font-bold mx-auto text-lg">
+                                                    <h:outputText value="#{msgs.data_evaluation_total}"/>
+                                                </span>
+                                                <ui:repeat value="#{evaluation.studentDataHashMap.values()}" var="student">
+                                                    <span>
+                                                        <h:outputText value="#{formatBean.formatPoints(student.totalPoints)}"/>
+                                                    </span>
+                                                </ui:repeat>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+                                    <div class="w-full flex justify-between">
+                                        <!-- buttons -->
+                                        <div>
+                                            <c:commandButton>
+                                                <h:outputText value="#{msgs.data_btn_new_student}"
+                                                              styleClass="bg-none text-utp_purple border border-utp_purple lato-light px-2 py-1 cursor-pointer rounded-sm select-none"/>
+                                            </c:commandButton>
+                                        </div>
+                                        <div class="flex gap-4">
+                                            <c:commandButton>
+                                                <h:outputText value="#{msgs.data_btn_delete}"
+                                                              styleClass="bg-red-neutro text-white px-2 py-1 cursor-pointer rounded-sm select-none"/>
+                                            </c:commandButton>
+                                            <c:commandButton>
+                                                <h:outputText value="#{msgs.data_btn_save}"
+                                                              styleClass="bg-utp_purple text-white px-2 py-1 cursor-pointer rounded-sm select-none"/>
+                                            </c:commandButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
                     </div>
                 </div>
             </div>

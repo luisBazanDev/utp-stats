@@ -36,5 +36,6 @@ CREATE TABLE IF NOT EXISTS Student_points (
     student_id INT NOT NULL,
     points DECIMAL(4,2),
     FOREIGN KEY(question_id) REFERENCES Question(id),
-    FOREIGN KEY(student_id) REFERENCES Student(id)
+    FOREIGN KEY(student_id) REFERENCES Student(id),
+    UNIQUE KEY `student_points_id` (question_id, student_id)
 );

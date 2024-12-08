@@ -5,6 +5,7 @@ function renderOne(type, evaluationId, evaluationData) {
             renderPieData(evaluationId, evaluationData);
             break;
         case "radar":
+            renderRadarData(evaluationId, evaluationData);
             break;
         case "lines":
             break;
@@ -13,7 +14,6 @@ function renderOne(type, evaluationId, evaluationData) {
 }
 
 function renderPieData(evaluationId, evaluationData) {
-
     for(const question of evaluationData.questions) {
         const chart = document.getElementById(`chart-e-${evaluationId}-q-${question.number}`)
         const labels = getLabelsOfN(question.value)
@@ -47,6 +47,44 @@ function renderPieData(evaluationId, evaluationData) {
     }
 }
 
+function renderRadarData(evaluationId, evaluationData) {
+    const dataset = {
+        label: evaluationData.data.name,
+        data: [],
+        fill: true,
+        backgroundColor: 'rgba(91, 54, 242, .3)',
+        borderColor: 'rgba(91, 54, 242, 1)',
+        pointBackgroundColor: '#FF385B',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: '#FF6579'
+    }
+
+    const chartOptions = {
+        type: "radar",
+        data: {
+            labels: [],
+            datasets: [dataset]
+        }
+    }
+
+    for (const studentData of evaluationData.studentsData) {
+        for (let i = 0; i < studentData.points.length; i++) {
+            if(!dataset.data[i]) dataset.data[i] = 0;
+            dataset.data[i] += studentData.points[i];
+        }
+    }
+
+    for (let i = 1; i <= evaluationData.data.questionsCount; i++) {
+        chartOptions.data.labels.push(`P${i}`)
+    }
+
+    const chart = document.getElementById(`chart-e-${evaluationId}`)
+
+
+    new Chart(chart, chartOptions)
+}
+
 function renderAll() {
     data.forEach(x => {
         renderOne(x.data.id)
@@ -71,14 +109,18 @@ function dataSchemaSet(type, evaluationId, evaluationData) {
             break;
         case 'radar':
             elem.innerHTML = `
-            <canvas id="chart-e-${evaluationId}" width="1080" height="720"">
-            </canvas>
+            <div class="w-1/3 flex justify-center">
+                <canvas id="chart-e-${evaluationId}">
+                </canvas>
+            </div>
             `
             break;
         case 'lines':
             elem.innerHTML = `
-            <canvas id="chart-e-${evaluationId}" width="1080" height="720"">
-            </canvas>
+            <div class="w-2/3 flex justify-center">
+                <canvas id="chart-e-${evaluationId}">
+                </canvas>
+            </div>
             `
             break;
     }
@@ -125,7 +167,7 @@ function getLabelsOfN(maximum) {
 function getColorList(maximum) {
     const colors = [
         "#FF5733", "#33FF57", "#3357FF", "#F1C40F", "#9B59B6",
-        "#1ABC9C", "#E74C3C", "#2980B9", "#8E44AD", "#2ECC71",
+        "#2ECC71", "#1ABC9C", "#E74C3C", "#2980B9", "#8E44AD",
         "#3498DB", "#E67E22", "#E91E63", "#3F51B5", "#00BCD4",
         "#009688", "#FF9800", "#CDDC39", "#795548", "#607D8B"
     ];

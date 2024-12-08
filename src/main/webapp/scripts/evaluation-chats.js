@@ -125,8 +125,6 @@ function renderBarsData(evaluationId, evaluationData) {
 
     const chart = document.getElementById(`chart-e-${evaluationId}`)
 
-    console.log(chartOptions)
-
     new Chart(chart, chartOptions)
 }
 

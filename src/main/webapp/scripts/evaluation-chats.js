@@ -10,6 +10,9 @@ function renderOne(type, evaluationId, evaluationData) {
         case "bars":
             renderBarsData(evaluationId, evaluationData)
             break;
+        case "top":
+            renderTopData(evaluationId, evaluationData)
+            break;
     }
 
 }
@@ -127,6 +130,33 @@ function renderBarsData(evaluationId, evaluationData) {
     new Chart(chart, chartOptions)
 }
 
+function renderTopData(evaluationId, evaluationData) {
+    const elem1 = document.getElementById(`chart-e-${evaluationId}-1`);
+    const elem2 = document.getElementById(`chart-e-${evaluationId}-2`);
+    const elem3 = document.getElementById(`chart-e-${evaluationId}-3`);
+
+    const data = {}
+
+    for(const studentData of evaluationData.studentsData) {
+        if(!data[Math.round(studentData.totalPoints)]) data[Math.round(studentData.totalPoints)] = [];
+        data[Math.round(studentData.totalPoints)].push(studentData.name);
+    }
+
+    const sortedValues = Object.entries(data).map((id, data) => Number.parseInt(id)).sort((a, b) => b - a).slice(0, 3)
+
+    if(sortedValues[0]) {
+        elem1.innerHTML = data[sortedValues[0]].map(name => name.slice(0, 10) + "...").join(", ") + ` (${sortedValues[0]})`
+    }
+
+    if(sortedValues[1]) {
+        elem2.innerHTML = data[sortedValues[1]].map(name => name.slice(0, 10) + "...").join(", ") + ` (${sortedValues[1]})`
+    }
+
+    if(sortedValues[2]) {
+        elem3.innerHTML = data[sortedValues[2]].map(name => name.slice(0, 10) + "...").join(", ") + ` (${sortedValues[2]})`
+    }
+}
+
 function renderAll() {
     data.forEach(x => {
         renderOne(x.data.id)
@@ -165,6 +195,24 @@ function dataSchemaSet(type, evaluationId, evaluationData) {
             </div>
             `
             break;
+        case 'top':
+            elem.innerHTML = `
+            <div class="w-2/3 flex gap-4 justify-center">
+                <div class="flex flex-col gap-2">
+                    <span id="chart-e-${evaluationId}-2" class="text-wrap max-w-28"></span>
+                    <div class="w-24 bg-zinc-500 h-24 flex items-center justify-center mt-auto text-white font-bold text-xl">2</div>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span id="chart-e-${evaluationId}-1" class="text-wrap max-w-28"></span>
+                    <div class="w-24 bg-yellow-400 h-40 flex items-center justify-center mt-auto text-white font-bold text-xl">1</div>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span id="chart-e-${evaluationId}-3" class="text-wrap max-w-28"></span>
+                    <div class="w-24 bg-amber-800 h-32 flex items-center justify-center mt-auto text-white font-bold text-xl">3</div>
+                </div>
+            </div>
+            `
+            break;
     }
 
 }
@@ -173,7 +221,7 @@ function changeChart(type, evaluationId) {
     const classListActive = "flex-1 bg-utp_purple text-white font-bold py-2"
     const classListDefault = "flex-1 border border-utp_purple text-utp_purple py-2"
 
-    for (const typeComparator of ['pie', 'radar', 'bars']) {
+    for (const typeComparator of ['pie', 'radar', 'bars', 'top']) {
         if (type === typeComparator) {
             document.getElementById(`btn-${typeComparator}-${evaluationId}`).className = classListActive;
         } else {

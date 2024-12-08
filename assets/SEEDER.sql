@@ -12,7 +12,9 @@ VALUES
 (1, 'Juan Roro Perez Robler', 15),
 (1, 'Rosa Leonarda Coronado Pendeivis', 10),
 (1, 'José Luis Rojas Paredes', 08),
-(1, 'Ana Sofía Torres Cárdenas', 16);
+(1, 'Ana Sofía Torres Cárdenas', 20),
+(1, 'Alvaro Will Tempera Cárdenas', 15),
+(1, 'Elder Joel Gavidia Cárdenas', 7);
 
 INSERT INTO Question (evaluation_id, number, value)
 VALUES
@@ -51,7 +53,19 @@ VALUES
 (2, 4, 4),
 (3, 4, 4),
 (4, 4, 4),
-(5, 4, 4);
+(5, 4, 4),
+-- Student 5
+(1, 5, 4),
+(2, 5, 2),
+(3, 5, 1),
+(4, 5, 4),
+(5, 5, 4),
+-- Student 6
+(1, 6, 0),
+(2, 6, 0),
+(3, 6, 0),
+(4, 6, 3),
+(5, 6, 4);
 
 
 ------- Check data into db -------

@@ -58,35 +58,134 @@
             </div>
             <div class="bg-slate-100 w-full h-full p-4 overflow-x-none overflow-y-auto">
                 <!-- Content -->
-                <div>
-                    <div>
-                        <!-- Section Info -->
-                    </div>
-                    <div>
-                        <!-- Change section -->
-                    </div>
-                </div>
-                <div>
-                    <ui:repeat value="#{evaluationsBean.evaluations}" var="evaluation">
-                        <div>
-                            <div>
-                                <!-- Evaluation info -->
-                                <h:outputText value="#{evaluation.toJson().toString()}"/>
-                            </div>
-                            <div>
-                                <!-- Evaluation data -->
-                                <div>
-                                    <!-- Charts -->
+                <div class="flex flex-col gap-8">
+                    <div class="flex justify-between">
+                        <div class="bg-white flex gap-4 items-center p-2 rounded-xl drop-shadow-lg">
+                            <!-- section info -->
+                            <img src="/images/not-courses.svg" alt="section-id" class="h-16"/>
+                            <div class="flex gap-16 mr-4">
+                                <div class="flex gap-1">
+                                    <span class="font-bold">
+                                        <h:outputText value="#{msgs.data_info_section}"/>
+                                    </span>
+                                    <span>
+                                        <h:outputText value="#{sectionBean.sectionInfo.id}"/>
+                                    </span>
                                 </div>
-                                <div>
-                                    <!-- Buttons -->
+                                <div class="flex gap-1">
+                                    <span class="font-bold">
+                                        <h:outputText value="#{msgs.data_info_name}"/>
+                                    </span>
+                                    <span>
+                                        <h:outputText value="#{sectionBean.sectionInfo.name}"/>
+                                    </span>
+                                </div>
+                                <div class="flex gap-1">
+                                    <span class="font-bold">
+                                        <h:outputText value="#{msgs.data_info_students}"/>
+                                    </span>
+                                    <span>
+                                        <h:outputText value="#{sectionBean.sectionInfo.totalStudents}"/>
+                                    </span>
+                                </div>
+                                <div class="flex gap-1">
+                                    <span class="font-bold">
+                                        <h:outputText value="#{msgs.data_info_evaluations}"/>
+                                    </span>
+                                    <span>
+                                        <h:outputText value="#{sectionBean.sectionInfo.totalEvaluations}"/>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </ui:repeat>
+                        <div>
+                            <!-- Change section -->
+                            <h:form>
+                                <h:selectOneMenu styleClass="h-full outline-none" onselect="#{routerBean.statsOfData}">
+                                    <f:selectItem itemValue="#{sectionBean.sectionInfo.id}" itemLabel="#{msgs.data_info_section} #{sectionBean.sectionInfo.id}"/>
+                                    <ui:repeat value="#{sectionBean.sections}" var="section">
+                                        <h:panelGroup rendered="#{section.id != sectionBean.sectionInfo.id}">
+                                            <f:selectItem value="#{section.id}" itemLabel="#{msgs.data_info_section} #{section.id}"/>
+                                        </h:panelGroup>
+                                        <f:selectItem value="#{section.id}" itemLabel="#{msgs.data_info_section} #{section.id}"/>
+                                    </ui:repeat>
+                                </h:selectOneMenu>
+                            </h:form>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-8">
+                        <ui:repeat value="#{evaluationsBean.evaluations}" var="evaluation">
+                            <div>
+                                <div class="flex justify-between bg-white drop-shadow-lg w-full rounded-xl p-2 h-20 items-center z-20">
+                                    <!-- Evaluation info -->
+                                    <div class="flex gap-16 items-center h-full">
+                                        <div class="text-2xl text-utp_purple font-bold lato-regular">
+                                            <h:outputText value="##{formatBean.format2Digits(evaluation.data.id)}"/>
+                                        </div>
+                                        <div class="flex gap-2">
+                                        <span class="font-bold">
+                                            <h:outputText value="#{msgs.data_evaluation_name}"/>
+                                        </span>
+                                            <span>
+                                            <h:outputText value="#{evaluation.data.name}"/>
+                                        </span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                        <span class="font-bold">
+                                            <h:outputText value="#{msgs.data_evaluation_questions}"/>
+                                        </span>
+                                            <span>
+                                            <h:outputText value="#{evaluation.data.questionsCount}"/>
+                                        </span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                        <span class="font-bold">
+                                            <h:outputText value="#{msgs.data_evaluation_minimum_approve}"/>
+                                        </span>
+                                            <span>
+                                            <h:outputText value="#{evaluation.data.minPoints}"/>
+                                        </span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                        <span class="font-bold">
+                                            <h:outputText value="#{msgs.data_evaluation_date}"/>
+                                        </span>
+                                            <span>
+                                            <h:outputText value="#{formatBean.formatDate(evaluation.data.date)}"/>
+                                        </span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                        <span class="font-bold">
+                                            <h:outputText value="#{msgs.data_evaluation_average}"/>
+                                        </span>
+                                            <span class="p-1 bg-#{evaluation.data.averageStudentsPoints >= evaluation.data.minPoints ? 'green-200' : 'red-300'}">
+                                            <h:outputText value="#{evaluation.data.averageStudentsPoints}"/>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <button id="toggle-btn-evaluation-#{evaluation.data.id}"
+                                            class="cursor-pointer h-full items-center flex pr-4 hover:scale-105 active:scale-95 transition-transform"
+                                            onclick="toggleEvaluation(#{evaluation.data.id})">
+                                        <img src="/icons/chevron-down.svg" alt="chevron-down" class="w-8"/>
+                                    </button>
+                                </div>
+                                <div class="bg-white w-[98%] mx-auto rounded-b-xl drop-shadow-md flex flex-col justify-between z-10 p-4 gap-4 hidden"
+                                     id="evaluation-data-#{evaluation.data.id}">
+                                    <!-- Evaluation data -->
+                                    <div>
+                                        <!-- Charts -->
+                                    </div>
+                                    <div>
+                                        <!-- Buttons -->
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="/scripts/data-page.js"></script>
 </f:view>
 </html>

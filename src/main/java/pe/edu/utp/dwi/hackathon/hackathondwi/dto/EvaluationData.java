@@ -1,5 +1,7 @@
 package pe.edu.utp.dwi.hackathon.hackathondwi.dto;
 
+import org.json.JSONObject;
+
 import java.util.Date;
 
 public class EvaluationData {
@@ -65,5 +67,9 @@ public class EvaluationData {
 
     public void setAverageStudentsPoints(double averageStudentsPoints) {
         this.averageStudentsPoints = averageStudentsPoints;
+    }
+
+    public JSONObject toJSON() {
+        return new JSONObject(this);
     }
 }

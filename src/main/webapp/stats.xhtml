@@ -17,7 +17,9 @@
                         utp_red: '#FF385B',
                         utp_red_light: '#FF6579',
                         utp_purple: '#5B36F2',
-                        red: '#FF0000'
+                        red: {
+                            neutro: '#FF0000',
+                        }
                     }
                 }
             }
@@ -56,6 +58,33 @@
             </div>
             <div class="bg-slate-100 w-full h-full p-4 overflow-x-none overflow-y-auto">
                 <!-- Content -->
+                <div>
+                    <div>
+                        <!-- Section Info -->
+                    </div>
+                    <div>
+                        <!-- Change section -->
+                    </div>
+                </div>
+                <div>
+                    <ui:repeat value="#{evaluationsBean.evaluations}" var="evaluation">
+                        <div>
+                            <div>
+                                <!-- Evaluation info -->
+                                <h:outputText value="#{evaluation.toJson().toString()}"/>
+                            </div>
+                            <div>
+                                <!-- Evaluation data -->
+                                <div>
+                                    <!-- Charts -->
+                                </div>
+                                <div>
+                                    <!-- Buttons -->
+                                </div>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>
             </div>
         </div>
     </div>

@@ -1,5 +1,7 @@
 package pe.edu.utp.dwi.hackathon.hackathondwi.domain;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class StudentData {
@@ -34,5 +36,9 @@ public class StudentData {
     public void addPoint(double point) {
         totalPoints += point;
         points.add(point);
+    }
+
+    public JSONObject toJson() {
+        return new JSONObject(this);
     }
 }

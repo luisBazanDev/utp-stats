@@ -1,5 +1,7 @@
 package pe.edu.utp.dwi.hackathon.hackathondwi.dto;
 
+import org.json.JSONObject;
+
 public class QuestionData {
     private int id;
     private int number;
@@ -33,5 +35,9 @@ public class QuestionData {
 
     public void setValue(double value) {
         this.value = value;
+    }
+
+    public JSONObject toJson() {
+        return new JSONObject(this);
     }
 }

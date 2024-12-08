@@ -1,5 +1,6 @@
 package pe.edu.utp.dwi.hackathon.hackathondwi.domain;
 
+import org.json.JSONObject;
 import pe.edu.utp.dwi.hackathon.hackathondwi.dao.EvaluationDAO;
 import pe.edu.utp.dwi.hackathon.hackathondwi.dto.EvaluationData;
 import pe.edu.utp.dwi.hackathon.hackathondwi.dto.QuestionData;
@@ -49,5 +50,15 @@ public class Evaluation {
 
     public HashMap<Integer, StudentData> getStudentDataHashMap() {
         return studentDataHashMap;
+    }
+
+    public JSONObject toJson() {
+        JSONObject output = new JSONObject();
+
+        output.put("data", data.toJSON());
+        output.put("questions", questions.stream().map(QuestionData::toJson).toArray());
+        output.put("studentsData", studentDataHashMap.values().stream().map(StudentData::toJson).toArray());
+
+        return output;
     }
 }

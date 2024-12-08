@@ -202,7 +202,7 @@
                                                 <ui:repeat value="#{evaluation.studentDataHashMap.values()}"
                                                            var="student" varStatus="statusStudent">
                                                     <span>
-                                                        <h:outputText value="#{student.name}"/>
+                                                        <h:inputText value="#{student.name}" styleClass="w-96"/>
                                                     </span>
                                                 </ui:repeat>
                                             </div>

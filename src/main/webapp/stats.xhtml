@@ -183,9 +183,15 @@
                                     </div>
                                     <div class="w-full flex gap-4">
                                         <!-- Buttons -->
-                                        <button class="flex-1 border border-utp_purple text-utp_purple py-2" onclick="changeChart('pie', #{evaluation.data.id})" id="btn-pie-#{evaluation.data.id}">Pie</button>
-                                        <button class="flex-1 border border-utp_purple text-utp_purple py-2" onclick="changeChart('radar', #{evaluation.data.id})" id="btn-radar-#{evaluation.data.id}">Radar</button>
-                                        <button class="flex-1 border border-utp_purple text-utp_purple py-2" onclick="changeChart('lines', #{evaluation.data.id})" id="btn-lines-#{evaluation.data.id}">Lines</button>
+                                        <button class="flex-1 border border-utp_purple text-utp_purple py-2" onclick="changeChart('pie', #{evaluation.data.id})" id="btn-pie-#{evaluation.data.id}">
+                                            <h:outputText value="#{msgs.stats_btn_pie}"/>
+                                        </button>
+                                        <button class="flex-1 border border-utp_purple text-utp_purple py-2" onclick="changeChart('radar', #{evaluation.data.id})" id="btn-radar-#{evaluation.data.id}">
+                                            <h:outputText value="#{msgs.stats_btn_radar}"/>
+                                        </button>
+                                        <button class="flex-1 border border-utp_purple text-utp_purple py-2" onclick="changeChart('bars', #{evaluation.data.id})" id="btn-bars-#{evaluation.data.id}">
+                                            <h:outputText value="#{msgs.stats_btn_bars}"/>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

@@ -7,7 +7,8 @@ function renderOne(type, evaluationId, evaluationData) {
         case "radar":
             renderRadarData(evaluationId, evaluationData);
             break;
-        case "lines":
+        case "bars":
+            renderBarsData(evaluationId, evaluationData)
             break;
     }
 
@@ -31,7 +32,7 @@ function renderPieData(evaluationId, evaluationData) {
 
         for(const studentData of evaluationData.studentsData) {
             const questionPoint = studentData.points[question.number-1];
-            dataset.data[questionPoint]++;
+            dataset.data[Math.round(questionPoint)]++;
         }
 
 
@@ -85,6 +86,47 @@ function renderRadarData(evaluationId, evaluationData) {
     new Chart(chart, chartOptions)
 }
 
+function renderBarsData(evaluationId, evaluationData) {
+    const dataset = {
+        label: evaluationData.data.name,
+        data: [],
+        fill: true,
+        backgroundColor: getColorList(evaluationData.data.questionsCount)
+    }
+
+    const chartOptions = {
+        type: "bar",
+        data: {
+            labels: [],
+            datasets: [dataset]
+        }
+    }
+
+    let maxPoints =0
+
+    for (let i = 0; i < evaluationData.questions.length; i++) {
+        maxPoints+=evaluationData.questions[i].value
+    }
+
+    for (let i = 0; i <= maxPoints; i++) {
+        dataset.data[i] = 0
+    }
+
+    chartOptions.data.labels = getLabelsOfN(maxPoints)
+    dataset.backgroundColor = getColorList(maxPoints + 1)
+
+    for (const studentData of evaluationData.studentsData) {
+        if(!dataset.data[Math.round(studentData.totalPoints)]) dataset.data[Math.round(studentData.totalPoints)] = 0;
+        dataset.data[Math.round(studentData.totalPoints)]++;
+    }
+
+    const chart = document.getElementById(`chart-e-${evaluationId}`)
+
+    console.log(chartOptions)
+
+    new Chart(chart, chartOptions)
+}
+
 function renderAll() {
     data.forEach(x => {
         renderOne(x.data.id)
@@ -115,7 +157,7 @@ function dataSchemaSet(type, evaluationId, evaluationData) {
             </div>
             `
             break;
-        case 'lines':
+        case 'bars':
             elem.innerHTML = `
             <div class="w-2/3 flex justify-center">
                 <canvas id="chart-e-${evaluationId}">
@@ -131,7 +173,7 @@ function changeChart(type, evaluationId) {
     const classListActive = "flex-1 bg-utp_purple text-white font-bold py-2"
     const classListDefault = "flex-1 border border-utp_purple text-utp_purple py-2"
 
-    for (const typeComparator of ['pie', 'radar', 'lines']) {
+    for (const typeComparator of ['pie', 'radar', 'bars']) {
         if (type === typeComparator) {
             document.getElementById(`btn-${typeComparator}-${evaluationId}`).className = classListActive;
         } else {

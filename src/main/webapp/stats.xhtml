@@ -29,6 +29,12 @@
 
     <!-- Lato font -->
     <link rel="stylesheet" href="/styles/font.css"/>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const data = []
+    </script>
 </head>
 <f:view>
     <div class="flex">
@@ -172,14 +178,21 @@
                                 <div class="bg-white w-[98%] mx-auto rounded-b-xl drop-shadow-md flex flex-col justify-between z-10 p-4 gap-4 hidden"
                                      id="evaluation-data-#{evaluation.data.id}">
                                     <!-- Evaluation data -->
-                                    <div>
+                                    <div class="flex justify-center flex-wrap gap-16" id="data-zone-#{evaluation.data.id}">
                                         <!-- Charts -->
                                     </div>
-                                    <div>
+                                    <div class="w-full flex gap-4">
                                         <!-- Buttons -->
+                                        <button class="flex-1 border border-utp_purple text-utp_purple py-2" onclick="changeChart('pie', #{evaluation.data.id})" id="btn-pie-#{evaluation.data.id}">Pie</button>
+                                        <button class="flex-1 border border-utp_purple text-utp_purple py-2" onclick="changeChart('radar', #{evaluation.data.id})" id="btn-radar-#{evaluation.data.id}">Radar</button>
+                                        <button class="flex-1 border border-utp_purple text-utp_purple py-2" onclick="changeChart('lines', #{evaluation.data.id})" id="btn-lines-#{evaluation.data.id}">Lines</button>
                                     </div>
                                 </div>
                             </div>
+                            <script>
+                                data.push(JSON.parse('#{evaluation.toJson()}'))
+                                console.log(data)
+                            </script>
                         </ui:repeat>
                     </div>
                 </div>
@@ -187,5 +200,6 @@
         </div>
     </div>
     <script src="/scripts/data-page.js"></script>
+    <script src="/scripts/evaluation-chats.js"></script>
 </f:view>
 </html>

@@ -15,7 +15,11 @@
                 extend: {
                     colors: {
                         utp_red: '#FF385B',
-                        utp_red_light: '#FF6579'
+                        utp_red_light: '#FF6579',
+                        utp_purple: '#5B36F2',
+                        red: {
+                            neutro: '#FF0000',
+                        }
                     }
                 }
             }
@@ -38,12 +42,12 @@
                 <span><h:outputText value="#{msgs.sidebar_home}"></h:outputText></span>
             </a>
             <a class="flex flex-col items-center cursor_pointer w-20 aspect-square justify-center gap-2 hover:bg-slate-50"
-               href="/data/#{sectionBean.sections.get(0) == null ? '' : sectionBean.sections.get(0).id}">
+               href="/data/#{sectionBean.sections.size() == 0 ? '' : sectionBean.sections.get(0).id}">
                 <i><img src="/icons/data.svg" alt="data.svg" class="w-4"/></i>
                 <span><h:outputText value="#{msgs.sidebar_data}"></h:outputText></span>
             </a>
             <a class="flex flex-col items-center cursor_pointer w-20 aspect-square justify-center gap-2 hover:bg-slate-50"
-               href="/stats/#{sectionBean.sections.get(0) == null ? '' : sectionBean.sections.get(0).id}">
+               href="/stats/#{sectionBean.sections.size() == 0 ? '' : sectionBean.sections.get(0).id}">
                 <i><img src="/icons/stats.svg" alt="stats.svg" class="w-4"/></i>
                 <span><h:outputText value="#{msgs.sidebar_stats}"></h:outputText></span>
             </a>
@@ -84,7 +88,10 @@
                     </a>
                 </ui:repeat>
 
-
+                <h:form>
+                    <h:commandButton action="${sectionBean.deleteSection}" value="#{msgs.home_import}"
+                                     styleClass="bg-utp_purple text-white drop-shadow-md h-36 aspect-[3/1] flex justify-center items-center rounded-xl hover:scale-95"/>
+                </h:form>
             </div>
         </div>
     </div>

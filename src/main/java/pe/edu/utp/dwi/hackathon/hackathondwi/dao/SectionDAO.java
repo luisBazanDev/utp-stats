@@ -57,4 +57,18 @@ public class SectionDAO implements ISectionDAO {
 
         return null;
     }
+
+    @Override
+    public void deleteSection(String sectionId) {
+        String query = "CALL deleteSection(?)";
+
+        try {
+            DatabaseConnection db = DatabaseConnection.getInstancia();
+            CallableStatement statement = db.getConexion().prepareCall(query);
+            statement.setString(1, sectionId);
+            statement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -7,6 +7,7 @@ import pe.edu.utp.dwi.hackathon.hackathondwi.dao.SectionDAO;
 import pe.edu.utp.dwi.hackathon.hackathondwi.dto.SectionData;
 import pe.edu.utp.dwi.hackathon.hackathondwi.dto.SectionInfo;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -44,5 +45,14 @@ public class SectionBean implements Serializable {
 
     public SectionInfo getSectionInfo() {
         return sectionInfo;
+    }
+
+    public void deleteSection() {
+        new SectionDAO().deleteSection(sectionInfo.getId());
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/home");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

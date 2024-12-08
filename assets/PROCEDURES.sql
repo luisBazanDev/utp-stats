@@ -116,10 +116,12 @@ DROP PROCEDURE IF EXISTS deleteEvaluation //
 CREATE PROCEDURE
 	deleteEvaluation(evaluation_id INT)
 BEGIN
+	SET SQL_SAFE_UPDATES = 0;
 	DELETE FROM Student_points AS ST WHERE ST.student_id IN (SELECT id FROM Student AS S WHERE S.evaluation_id = evaluation_id);
     DELETE FROM Student AS S WHERE S.evaluation_id = evaluation_id;
     DELETE FROM Question AS Q WHERE Q.evaluation_id = evaluation_id;
     DELETE FROM Evaluation AS E WHERE E.id = evaluation_id;
+	SET SQL_SAFE_UPDATES = 1;
 END
 //
 

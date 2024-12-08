@@ -10,4 +10,5 @@ public interface IEvaluationDAO {
     List<EvaluationData> getAllEvaluationsOf(String sectionId);
     List<QuestionData> getAllQuestionsOf(int evaluationId);
     List<StudentPoints> getAllStudentPointsOf(int evaluationId);
+    void deleteEvaluation(int evaluationId);
 }

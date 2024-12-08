@@ -86,4 +86,18 @@ public class EvaluationDAO implements IEvaluationDAO {
 
         return studentPoints;
     }
+
+    @Override
+    public void deleteEvaluation(int evaluationId) {
+        String query = "CALL deleteEvaluation(?)";
+
+        try {
+            DatabaseConnection db = DatabaseConnection.getInstancia();
+            CallableStatement statement = db.getConexion().prepareCall(query);
+            statement.setInt(1, evaluationId);
+            statement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

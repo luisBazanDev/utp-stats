@@ -8,4 +8,5 @@ import java.util.List;
 public interface ISectionDAO {
     List<SectionData> getAllSections();
     SectionInfo getSectionInfo(String sectionId);
+    void deleteSection(String sectionId);
 }

@@ -100,82 +100,96 @@
                         </div>
                         <div class="flex gap-4">
                             <!-- buttons -->
-                            <div class="bg-red-neutro flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
-                                <img src="/icons/trash.svg" alt="tash.svg" class="h-5"/>
-                                <span>
-                                    <h:outputText value="#{msgs.data_btn_delete}"/>
-                                </span>
-                            </div>
-                            <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
+                            <h:form>
+                                <h:commandButton
+                                        action="${sectionBean.deleteSection}"
+                                        value="#{msgs.data_btn_delete}"
+                                        styleClass="bg-red-neutro flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105"
+                                >
+                                    <f:facet name="image">
+                                        <img src="/icons/trash.svg" alt="tash.svg" class="h-5"/>
+                                    </f:facet>
+                                </h:commandButton>
+                            </h:form>
+                            <a class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105" target="_blank" href="/template/template.xlsx">
                                 <img src="/icons/file.svg" alt="file.svg" class="h-5"/>
                                 <span>
                                     <h:outputText value="#{msgs.data_btn_template}"/>
                                 </span>
-                            </div>
-                            <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
-                                <img src="/icons/upload.svg" alt="upload.svg" class="h-5"/>
-                                <span>
-                                    <h:outputText value="#{msgs.data_btn_import}"/>
-                                </span>
-                            </div>
-                            <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
-                                <img src="/icons/plus.svg" alt="plus.svg" class="h-5"/>
-                                <span>
-                                    <h:outputText value="#{msgs.data_btn_create}"/>
-                                </span>
-                            </div>
+                            </a>
+                            <c:commandButton>
+                                <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
+                                    <img src="/icons/upload.svg" alt="upload.svg" class="h-5"/>
+                                    <span>
+                                        <h:outputText value="#{msgs.data_btn_import}"/>
+                                    </span>
+                                </div>
+                            </c:commandButton>
+                            <c:commandButton>
+                                <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
+                                    <img src="/icons/plus.svg" alt="plus.svg" class="h-5"/>
+                                    <span>
+                                        <h:outputText value="#{msgs.data_btn_create}"/>
+                                    </span>
+                                </div>
+                            </c:commandButton>
                         </div>
                     </div>
                     <div class="flex flex-col gap-8">
                         <ui:repeat value="#{evaluationsBean.evaluations}" var="evaluation" varStatus="varStatus">
                             <div class="flex flex-col w-full item-center">
-                                <div class="flex gap-16 bg-white drop-shadow-lg w-full rounded-xl p-2 h-20 items-center z-20">
+                                <div class="flex justify-between bg-white drop-shadow-lg w-full rounded-xl p-2 h-20 items-center z-20">
                                     <!-- Evaluation info -->
-                                    <div class="text-2xl text-utp_purple font-bold lato-regular">
-                                        <h:outputText value="##{formatBean.format2Digits(varStatus.index + 1)}"/>
-                                    </div>
-                                    <div class="flex gap-2">
+                                    <div class="flex gap-16 items-center h-full">
+                                        <div class="text-2xl text-utp_purple font-bold lato-regular">
+                                            <h:outputText value="##{formatBean.format2Digits(evaluation.data.id)}"/>
+                                        </div>
+                                        <div class="flex gap-2">
                                         <span class="font-bold">
                                             <h:outputText value="#{msgs.data_evaluation_name}"/>
                                         </span>
-                                        <span>
+                                            <span>
                                             <h:outputText value="#{evaluation.data.name}"/>
                                         </span>
-                                    </div>
-                                    <div class="flex gap-2">
+                                        </div>
+                                        <div class="flex gap-2">
                                         <span class="font-bold">
                                             <h:outputText value="#{msgs.data_evaluation_questions}"/>
                                         </span>
-                                        <span>
+                                            <span>
                                             <h:outputText value="#{evaluation.data.questionsCount}"/>
                                         </span>
-                                    </div>
-                                    <div class="flex gap-2">
+                                        </div>
+                                        <div class="flex gap-2">
                                         <span class="font-bold">
                                             <h:outputText value="#{msgs.data_evaluation_minimum_approve}"/>
                                         </span>
-                                        <span>
+                                            <span>
                                             <h:outputText value="#{evaluation.data.minPoints}"/>
                                         </span>
-                                    </div>
-                                    <div class="flex gap-2">
+                                        </div>
+                                        <div class="flex gap-2">
                                         <span class="font-bold">
                                             <h:outputText value="#{msgs.data_evaluation_date}"/>
                                         </span>
-                                        <span>
+                                            <span>
                                             <h:outputText value="#{formatBean.formatDate(evaluation.data.date)}"/>
                                         </span>
-                                    </div>
-                                    <div class="flex gap-2">
+                                        </div>
+                                        <div class="flex gap-2">
                                         <span class="font-bold">
                                             <h:outputText value="#{msgs.data_evaluation_average}"/>
                                         </span>
-                                        <span class="p-1 bg-#{evaluation.data.averageStudentsPoints >= evaluation.data.minPoints ? 'green-200' : 'red-300'}">
+                                            <span class="p-1 bg-#{evaluation.data.averageStudentsPoints >= evaluation.data.minPoints ? 'green-200' : 'red-300'}">
                                             <h:outputText value="#{evaluation.data.averageStudentsPoints}"/>
                                         </span>
+                                        </div>
                                     </div>
+                                    <button id="toggle-btn-evaluation-#{evaluation.data.id}" class="cursor-pointer h-full items-center flex pr-4 hover:scale-105 active:scale-95 transition-transform" onclick="toggleEvaluation(#{evaluation.data.id})">
+                                        <img src="/icons/chevron-down.svg" alt="chevron-down" class="w-8"/>
+                                    </button>
                                 </div>
-                                <div class="bg-white w-[98%] mx-auto rounded-b-xl drop-shadow-md flex flex-col justify-between z-10 p-4 gap-4">
+                                <div class="bg-white w-[98%] mx-auto rounded-b-xl drop-shadow-md flex flex-col justify-between z-10 p-4 gap-4 hidden" id="evaluation-data-#{evaluation.data.id}">
                                     <!-- Evaluation student points -->
                                     <h:panelGroup rendered="#{evaluation.studentDataHashMap.size() > 0}">
                                         <div class="flex justify-between">
@@ -192,17 +206,28 @@
                                                     </span>
                                                 </ui:repeat>
                                             </div>
-                                            <ui:repeat value="#{utilsBean.generateNumberList(evaluation.data.questionsCount)}" var="questionNumber">
+                                            <ui:repeat
+                                                    value="#{utilsBean.generateNumberList(evaluation.data.questionsCount)}"
+                                                    var="questionNumber">
                                                 <div class="flex flex-col gap-2 items-center">
                                                     <!-- question n -->
                                                     <span class="mx-auto flex gap-1">
-                                                        <h:outputText value="P#{questionNumber}" styleClass="lato-regular font-bold text-lg"/>
-                                                        <h:outputText value="(#{evaluation.questions.get(questionNumber-1).value} pts)" styleClass="text-utp_red"/>
+                                                        <h:outputText value="P#{questionNumber}"
+                                                                      styleClass="lato-regular font-bold text-lg"/>
+                                                        <h:outputText
+                                                                value="(#{evaluation.questions.get(questionNumber-1).value} pts)"
+                                                                styleClass="text-utp_red"/>
                                                     </span>
                                                     <ui:repeat value="#{evaluation.studentDataHashMap.values()}"
                                                                var="student" varStatus="statusStudent">
                                                         <span>
-                                                            <h:outputText value="#{formatBean.formatPoints(student.points.get(questionNumber - 1))}"/>
+                                                            <input
+                                                                    value="#{formatBean.formatPoints(student.points.get(questionNumber - 1))}"
+                                                                    class="w-12 text-center"
+                                                                    type="text"
+                                                                    maxlength="5"
+                                                                    id="s#{student.id}-q#{questionNumber}-e#{evaluation.data.id}-m#{evaluation.questions.get(questionNumber-1).value}"
+                                                            />
                                                         </span>
                                                     </ui:repeat>
                                                 </div>
@@ -211,9 +236,11 @@
                                                 <span class="lato-regular font-bold mx-auto text-lg">
                                                     <h:outputText value="#{msgs.data_evaluation_total}"/>
                                                 </span>
-                                                <ui:repeat value="#{evaluation.studentDataHashMap.values()}" var="student">
+                                                <ui:repeat value="#{evaluation.studentDataHashMap.values()}"
+                                                           var="student">
                                                     <span>
-                                                        <h:outputText value="#{formatBean.formatPoints(student.totalPoints)}"/>
+                                                        <h:outputText
+                                                                value="#{formatBean.formatPoints(student.totalPoints)}"/>
                                                     </span>
                                                 </ui:repeat>
                                             </div>
@@ -228,14 +255,15 @@
                                             </c:commandButton>
                                         </div>
                                         <div class="flex gap-4">
-                                            <c:commandButton>
-                                                <h:outputText value="#{msgs.data_btn_delete}"
-                                                              styleClass="bg-red-neutro text-white px-2 py-1 cursor-pointer rounded-md select-none"/>
-                                            </c:commandButton>
-                                            <c:commandButton>
-                                                <h:outputText value="#{msgs.data_btn_save}"
-                                                              styleClass="bg-utp_purple text-white px-2 py-1 cursor-pointer rounded-md select-none"/>
-                                            </c:commandButton>
+                                            <h:form>
+                                                <h:commandButton
+                                                        value="#{msgs.data_btn_delete}"
+                                                        action="${evaluationsBean.deleteEvaluation(evaluation.data.id, sectionBean.sectionInfo.id)}"
+                                                        styleClass="bg-red-neutro text-white px-2 py-1 cursor-pointer rounded-md select-none"/>
+                                            </h:form>
+                                            <button onclick="saveEvaluationChanges()" class="bg-utp_purple text-white px-2 py-1 cursor-pointer rounded-md select-none">
+                                                <h:outputText value="#{msgs.data_btn_save}"/>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -246,5 +274,7 @@
             </div>
         </div>
     </div>
+    <script src="/scripts/view-changes.js"></script>
+    <script src="/scripts/data-page.js"></script>
 </f:view>
 </html>

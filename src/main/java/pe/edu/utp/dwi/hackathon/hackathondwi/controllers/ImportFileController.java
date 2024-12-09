@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import pe.edu.utp.dwi.hackathon.hackathondwi.dao.EvaluationDAO;
 import pe.edu.utp.dwi.hackathon.hackathondwi.domain.upload.StudentDataImport;
 
 import java.io.IOException;
@@ -85,6 +86,22 @@ public class ImportFileController extends HttpServlet {
             ));
         }
 
+        Integer evaluationId = new EvaluationDAO().insertEvaluationAndSection(sectionId, sectionName, evaluationName, evaluationDate, evaluationMinimum);
+
+        if(evaluationId == null) {
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error inserting evaluation");
+            return;
+        }
+
+        for (int i = 0; i < questionsPoints.size(); i++) {
+            int questionNumber = i + 1;
+            new EvaluationDAO().insertQuestion(evaluationId, questionNumber, questionsPoints.get(i));
+        }
+
+        for (StudentDataImport student : students) {
+            new EvaluationDAO().setStudentWithNotes(evaluationId, student);
+        }
+
 
         System.out.println(amountOfStudents);
 
@@ -95,7 +112,6 @@ public class ImportFileController extends HttpServlet {
         System.out.println("Evaluation Minimum: " + evaluationMinimum);
         System.out.println("Amount of Questions: " + amountOfQuestions);
 
-        resp.getWriter().println(sectionId);
-
+        resp.sendRedirect("/home");
     }
 }

@@ -197,7 +197,7 @@ BEGIN
     
     SET new_question_id = LAST_INSERT_ID();
     
-    SELECT new_question_id AS evaluation_id;
+    SELECT new_question_id AS question_id;
 END
 //
 
@@ -206,66 +206,60 @@ DROP PROCEDURE IF EXISTS setStudentWithNotes//
 CREATE PROCEDURE setStudentWithNotes(
     IN student_name VARCHAR(75),
     IN evaluation_id INT,
-    IN notes JSON
+    IN points JSON
 )
 BEGIN
     DECLARE student_id INT;
     DECLARE question_id INT;
-    DECLARE note_value DECIMAL(4,2);
-    DECLARE counter INT DEFAULT 0;
+    DECLARE i INT DEFAULT 0;
     DECLARE total_questions INT;
+    DECLARE question_points DECIMAL(4,2);
 
     SELECT id INTO student_id
     FROM Student
-    WHERE evaluation_id = evaluation_id AND name = student_name;
+    WHERE name = student_name AND evaluation_id = evaluation_id
+    LIMIT 1;
 
     IF student_id IS NULL THEN
-        INSERT INTO Student (evaluation_id, total_points, name)
-        VALUES (evaluation_id, NULL, student_name);
+        INSERT INTO Student (name, evaluation_id, total_points)
+        VALUES (student_name, evaluation_id, 0);
         SET student_id = LAST_INSERT_ID();
     END IF;
 
-    SELECT COUNT(*) INTO total_questions
-    FROM Question
-    WHERE evaluation_id = evaluation_id;
+    SET total_questions = JSON_LENGTH(points);
 
-    WHILE counter < JSON_LENGTH(notes) DO
+    WHILE i < total_questions DO
+        SET @question_points_now = JSON_EXTRACT(points, CONCAT('$[', i, ']'));
+        
         SELECT id INTO question_id
         FROM Question
-        WHERE evaluation_id = evaluation_id
-        ORDER BY number
-        LIMIT 1 OFFSET counter;
+        WHERE evaluation_id = evaluation_id AND number = i + 1
+        LIMIT 1;
 
-        SET note_value = JSON_EXTRACT(notes, CONCAT('$[', counter, ']'));
+        INSERT INTO Student_points (student_id, question_id, points)
+        VALUES (student_id, question_id, @question_points_now)
+        ON DUPLICATE KEY UPDATE points = @question_points_now;
 
-        IF EXISTS (
-            SELECT 1
-            FROM Student_points
-            WHERE question_id = question_id AND Student_points.student_id = student_id
-        ) THEN
-            UPDATE Student_points
-            SET points = note_value
-            WHERE question_id = question_id AND Student_points.student_id = student_id;
-        ELSE
-            INSERT INTO Student_points (question_id, student_id, points)
-            VALUES (question_id, student_id, note_value);
-        END IF;
-
-        SET counter = counter + 1;
+        SET i = i + 1;
     END WHILE;
 
     UPDATE Student
     SET total_points = (
         SELECT SUM(points)
         FROM Student_points
-        WHERE Student_points.student_id = student_id
+        WHERE student_id = Student.id
     )
     WHERE id = student_id;
-END //
+END//
 
 
 
 DELIMITER ;
+
+SET @points = '[1.2, 5.1, 4.6]';
+
+SELECT CAST(JSON_EXTRACT(@points, CONCAT('$[', 0, ']')) AS DECIMAL(4,2)) as aw;
+
 
 CALL getSections();
 CALL getSectionInfo('123456');
@@ -276,6 +270,6 @@ CALL insertOrCreateSectionEvaluation('40934', 'Base de datos', 'PC1', '2024-12-0
 CALL insertQuestion(3, 1, 5.0);
 CALL insertQuestion(3, 2, 5.0);
 CALL insertQuestion(3, 3, 5.0);
-CALL insertStudentWithNotes('Juan pepito wa2', 3, '[1.2, 5.0, 4.6]');
+CALL setStudentWithNotes('Juan pepito wa232', 3, '[1.2, 5.1, 4.6]');
 -- CALL deleteEvaluation(1);
 -- CALL deleteSection('123456');

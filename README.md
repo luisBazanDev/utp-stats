@@ -1,4 +1,4 @@
-# Proyecto: Análisis Académico Web
+# Proyecto: Análisis Académico
 
 ## Descripción de la Solución
 Este proyecto consiste en una aplicación web desarrollada en Java, diseñada para gestionar y analizar datos de evaluaciones académicas. La solución está orientada a ayudar a los docentes a realizar un análisis detallado del desempeño de sus alumnos, identificando áreas de oportunidad basadas en los resultados por pregunta.

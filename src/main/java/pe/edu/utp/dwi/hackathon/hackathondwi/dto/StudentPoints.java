@@ -10,7 +10,7 @@ public class StudentPoints {
         this.studentId = studentId;
         this.name = name;
         this.number = number;
-        this.points = points;
+        this.points = points == null ? 0.0 : points;
     }
 
     public int getStudentId() {

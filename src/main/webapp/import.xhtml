@@ -4,7 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <head>
@@ -58,40 +57,14 @@
             </div>
             <div class="bg-slate-100 w-full h-full p-4 overflow-x-none overflow-y-auto flex flex-wrap gap-4">
                 <!-- Content -->
-                <ui:repeat value="#{sectionBean.sections}" var="section">
-                    <a class="bg-white drop-shadow-md h-36 aspect-[3/1] flex justify-between items-center px-4 rounded-xl group"
-                       href="/data/#{section.id}">
-                        <div class="flex gap-4 items-center h-full">
-                            <img src="/images/not-courses.svg" alt="not-courses.svg" class="aspect-square h-[65%]"/>
-                            <div class="flex flex-col gap-2">
-                                <div class="flex gap-1">
-                                <span class="lato-regular font-bold">
-                                    <h:outputText value="#{msgs.home_section}"/>
-                                </span>
-                                    <span>
-                                    <h:outputText value="#{section.id}"/>
-                                </span>
-                                </div>
-                                <div class="flex gap-1">
-                                <span class="lato-regular font-bold">
-                                    <h:outputText value="#{msgs.home_name}"/>
-                                </span>
-                                    <span>
-                                    <h:outputText value="#{section.name}"/>
-                                </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex h-full group-hover:-translate-x-1 group-action:translate-x-2 transition-transform">
-                            <img src="/icons/right-arrow.svg" alt="right-arrow.svg" class="h-full w-4"/>
-                        </div>
-                    </a>
-                </ui:repeat>
-
-
-                <a class="bg-utp_purple text-white drop-shadow-md h-36 aspect-[3/1] flex justify-center items-center rounded-xl hover:scale-95" href="/import-file">
-                    #{msgs.home_import}
-                </a>
+                <form action="/import-file" method="post" enctype="multipart/form-data">
+                    <div>
+                        <input type="file" name="file"/>
+                    </div>
+                    <div>
+                        <input type="submit" value="submit"/>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -47,7 +47,7 @@
                 <span><h:outputText value="#{msgs.sidebar_data}"></h:outputText></span>
             </a>
             <a class="flex flex-col items-center cursor_pointer w-20 aspect-square justify-center gap-2 hover:bg-slate-50"
-               href="/stats/#{sectionBean.sections.get(0) == null ? '' : sectionBean.sections.get(0).id}">
+               href="/stats/#{sectionBean.sectionInfo.id}">
                 <i><img src="/icons/stats.svg" alt="stats.svg" class="w-4"/></i>
                 <span><h:outputText value="#{msgs.sidebar_stats}"></h:outputText></span>
             </a>
@@ -117,14 +117,12 @@
                                     <h:outputText value="#{msgs.data_btn_template}"/>
                                 </span>
                             </a>
-                            <c:commandButton>
-                                <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
-                                    <img src="/icons/upload.svg" alt="upload.svg" class="h-5"/>
-                                    <span>
+                            <a href="/import-file" class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
+                                <img src="/icons/upload.svg" alt="upload.svg" class="h-5"/>
+                                <span>
                                         <h:outputText value="#{msgs.data_btn_import}"/>
                                     </span>
-                                </div>
-                            </c:commandButton>
+                            </a>
                             <c:commandButton>
                                 <div class="bg-utp_purple flex flex-col items-center justify-center text-white rounded-xl cursor-pointer w-20 h-20 hover:scale-105">
                                     <img src="/icons/plus.svg" alt="plus.svg" class="h-5"/>

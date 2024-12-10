@@ -198,7 +198,7 @@ function dataSchemaSet(type, evaluationId, evaluationData) {
             <div class="w-2/3 flex gap-4 justify-center">
                 <div class="flex flex-col gap-2">
                     <span id="chart-e-${evaluationId}-2" class="text-wrap max-w-28"></span>
-                    <div class="w-24 bg-zinc-500 h-24 flex items-center justify-center mt-auto text-white font-bold text-xl">2</div>
+                    <div class="w-24 bg-zinc-500 h-32 flex items-center justify-center mt-auto text-white font-bold text-xl">2</div>
                 </div>
                 <div class="flex flex-col gap-2">
                     <span id="chart-e-${evaluationId}-1" class="text-wrap max-w-28"></span>
@@ -206,7 +206,7 @@ function dataSchemaSet(type, evaluationId, evaluationData) {
                 </div>
                 <div class="flex flex-col gap-2">
                     <span id="chart-e-${evaluationId}-3" class="text-wrap max-w-28"></span>
-                    <div class="w-24 bg-amber-800 h-32 flex items-center justify-center mt-auto text-white font-bold text-xl">3</div>
+                    <div class="w-24 bg-amber-800 h-24 flex items-center justify-center mt-auto text-white font-bold text-xl">3</div>
                 </div>
             </div>
             `
